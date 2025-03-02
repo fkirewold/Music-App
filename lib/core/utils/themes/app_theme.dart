@@ -7,4 +7,4 @@ class Themes{
  static final ThemeData appTheme=ThemeData(
   scaffoldBackgroundColor: AppThemes.backgroundColor,
 );
-}
+} 

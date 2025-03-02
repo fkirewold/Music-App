@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/config/routes.dart';
-import 'package:music_app/core/utils/thems/app_theme.dart';
+import 'package:music_app/core/utils/themes/app_theme.dart';
 
 void main()
 {
