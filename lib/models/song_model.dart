@@ -1,21 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class SongModel {
   final String title;
   final String artist;
   final String album;
-  final String coverImage;
+  final String coverImageUrl;
   final String previewUrl;
   final int durationMs;
-  final int popularity;
   SongModel({
     required this.title,
     required this.artist,
     required this.album,
-    required this.coverImage,
+    required this.coverImageUrl,
     required this.previewUrl,
     required this.durationMs,
-    required this.popularity,
   });
 
   SongModel copyWith({
@@ -25,16 +24,14 @@ class SongModel {
     String? coverImage,
     String? previewUrl,
     int? durationMs,
-    int? popularity,
   }) {
     return SongModel(
       title: title ?? this.title,
       artist: artist ?? this.artist,
       album: album ?? this.album,
-      coverImage: coverImage ?? this.coverImage,
+      coverImageUrl: coverImage ?? this.coverImageUrl,
       previewUrl: previewUrl ?? this.previewUrl,
       durationMs: durationMs ?? this.durationMs,
-      popularity: popularity ?? this.popularity,
     );
   }
 
@@ -43,56 +40,52 @@ class SongModel {
       'title': title,
       'artist': artist,
       'album': album,
-      'coverImage': coverImage,
+      'coverImage': coverImageUrl,
       'previewUrl': previewUrl,
       'durationMs': durationMs,
-      'popularity': popularity,
     };
   }
 
-  factory SongModel.fromMap(Map<String, dynamic> map) {
+  factory SongModel.fromMap(Map<String, dynamic> json) {
     return SongModel(
-      title: map['title'] as String,
-      artist: map['artist'] as String,
-      album: map['album'] as String,
-      coverImage: map['coverImage'] as String,
-      previewUrl: map['previewUrl'] as String,
-      durationMs: map['durationMs'] as int,
-      popularity: map['popularity'] as int,
+      title: json['name'],
+      album: json['album']['album_type'],
+      artist: json['artists'][0]['name'],
+      coverImageUrl: json['album']['images'][0]['url'],
+      previewUrl: json['preview_url'] ?? "",
+      durationMs: 129,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory SongModel.fromJson(String source) => SongModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory SongModel.fromJson(String source) =>
+      SongModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'SongModel(title: $title, artist: $artist, album: $album, coverImage: $coverImage, previewUrl: $previewUrl, durationMs: $durationMs, popularity: $popularity)';
+    return 'SongModel(title: $title, artist: $artist, album: $album, coverImage: $coverImageUrl, previewUrl: $previewUrl, durationMs: $durationMs)';
   }
 
   @override
   bool operator ==(covariant SongModel other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.title == title &&
-      other.artist == artist &&
-      other.album == album &&
-      other.coverImage == coverImage &&
-      other.previewUrl == previewUrl &&
-      other.durationMs == durationMs &&
-      other.popularity == popularity;
+
+    return other.title == title &&
+        other.artist == artist &&
+        other.album == album &&
+        other.coverImageUrl == coverImageUrl &&
+        other.previewUrl == previewUrl &&
+        other.durationMs == durationMs;
   }
 
   @override
   int get hashCode {
     return title.hashCode ^
-      artist.hashCode ^
-      album.hashCode ^
-      coverImage.hashCode ^
-      previewUrl.hashCode ^
-      durationMs.hashCode ^
-      popularity.hashCode;
+        artist.hashCode ^
+        album.hashCode ^
+        coverImageUrl.hashCode ^
+        previewUrl.hashCode ^
+        durationMs.hashCode;
   }
 }

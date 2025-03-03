@@ -6,11 +6,13 @@ class ContainerWidget extends StatelessWidget {
   final double? width;
   final BorderRadius? borderRadius;
   final Color? color;
+  final Widget? child;
   final DecorationImage? image;
   final BoxBorder? border;
    final BoxShape? shape;
   const ContainerWidget({
-    super.key, 
+    super.key,
+    this.child, 
     this.hieght, 
     this.width, 
     this.color, 
@@ -27,11 +29,12 @@ class ContainerWidget extends StatelessWidget {
       height: hieght,
       decoration: BoxDecoration(
         border: border,
-        borderRadius: borderRadius,
+        borderRadius:borderRadius,
         image: image,
         color: color,
         shape: shape??BoxShape.rectangle,
       ),
+      child: child,
     );
   }
 }
